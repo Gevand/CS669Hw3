@@ -31,15 +31,8 @@ namespace CS669GevandBalayanHomework3
             txtKirshThreshold.Text = kirshThreshold.ToString();
         }
 
-        private void btnCanny_Click(object sender, EventArgs e)
-        {
-            if (pictInput.Image == null)
-            {
-                MessageBox.Show("First enter an image");
-                return;
-            }
 
-        }
+        #region Helpers
         private void LoadConstants()
         {
             int.TryParse(txtCannyThreshold.Text, out cannyThresHold);
@@ -50,6 +43,20 @@ namespace CS669GevandBalayanHomework3
             int.TryParse(txtRobinsonThreshold.Text, out robinsonThreshold);
             int.TryParse(txtKirshThreshold.Text, out kirshThreshold);
         }
+        private Bitmap GreyScale(Bitmap image)
+        {
+            var returnedBitMap = new Bitmap(image.Width, image.Height);
+
+            for (int i = 0; i < image.Width; i++)
+                for (int j = 0; j < image.Height; j++)
+                {
+                    var pixel = image.GetPixel(i, j);
+                    var newPixel = Color.FromArgb(pixel.R, pixel.R, pixel.R);
+                    returnedBitMap.SetPixel(i, j, newPixel);
+                }
+            return returnedBitMap;
+        }
+        #endregion
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -73,6 +80,18 @@ namespace CS669GevandBalayanHomework3
                 MessageBox.Show("Error! Couldn't load image.");
             }
         }
+        #region Canny
+        private void btnCanny_Click(object sender, EventArgs e)
+        {
+            if (pictInput.Image == null)
+            {
+                MessageBox.Show("First enter an image");
+                return;
+            }
+
+        }
+        #endregion
+        #region Basic Edge Detection Algorithms
         private async void btnKirsh_Click(object sender, EventArgs e)
         {
             if (pictInput.Image == null)
@@ -112,7 +131,7 @@ namespace CS669GevandBalayanHomework3
                         int p7 = greyScale.GetPixel(i + 1, j - 1).R;
                         int p8 = greyScale.GetPixel(i + 1, j).R;
                         int p9 = greyScale.GetPixel(i + 1, j + 1).R;
-                        var Gx = Math.Abs( (-5 * (p1 + p3 + p5)) + (3 * (p2 + p3 + p6 + p7 + p8)));
+                        var Gx = Math.Abs((-5 * (p1 + p3 + p5)) + (3 * (p2 + p3 + p6 + p7 + p8)));
                         if (Gx > kirshThreshold)
                             sobleBitMap.SetPixel(i, j, Color.White);
                         else
@@ -410,20 +429,8 @@ namespace CS669GevandBalayanHomework3
             outputForm.Width = sobleBitMap.Width + 50;
             outputForm.Show();
         }
+        #endregion
 
-        private Bitmap GreyScale(Bitmap image)
-        {
-            var returnedBitMap = new Bitmap(image.Width, image.Height);
-
-            for (int i = 0; i < image.Width; i++)
-                for (int j = 0; j < image.Height; j++)
-                {
-                    var pixel = image.GetPixel(i, j);
-                    var newPixel = Color.FromArgb(pixel.R, pixel.R, pixel.R);
-                    returnedBitMap.SetPixel(i, j, newPixel);
-                }
-            return returnedBitMap;
-        }
 
 
     }
