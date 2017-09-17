@@ -35,6 +35,10 @@
             this.prgLoader = new System.Windows.Forms.ProgressBar();
             this.txtCannyThreshold = new System.Windows.Forms.TextBox();
             this.txtSobelThreshold = new System.Windows.Forms.TextBox();
+            this.btnPrewitt = new System.Windows.Forms.Button();
+            this.txtPrewittThreshold = new System.Windows.Forms.TextBox();
+            this.btnLaplace = new System.Windows.Forms.Button();
+            this.txtLaplaceThreshold = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictInput)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,11 +102,49 @@
             this.txtSobelThreshold.Size = new System.Drawing.Size(26, 20);
             this.txtSobelThreshold.TabIndex = 6;
             // 
+            // btnPrewitt
+            // 
+            this.btnPrewitt.Location = new System.Drawing.Point(12, 102);
+            this.btnPrewitt.Name = "btnPrewitt";
+            this.btnPrewitt.Size = new System.Drawing.Size(75, 23);
+            this.btnPrewitt.TabIndex = 7;
+            this.btnPrewitt.Text = "Prewitt";
+            this.btnPrewitt.UseVisualStyleBackColor = true;
+            this.btnPrewitt.Click += new System.EventHandler(this.btnPrewitt_Click);
+            // 
+            // txtPrewittThreshold
+            // 
+            this.txtPrewittThreshold.Location = new System.Drawing.Point(93, 104);
+            this.txtPrewittThreshold.Name = "txtPrewittThreshold";
+            this.txtPrewittThreshold.Size = new System.Drawing.Size(26, 20);
+            this.txtPrewittThreshold.TabIndex = 8;
+            // 
+            // btnLaplace
+            // 
+            this.btnLaplace.Location = new System.Drawing.Point(12, 131);
+            this.btnLaplace.Name = "btnLaplace";
+            this.btnLaplace.Size = new System.Drawing.Size(75, 23);
+            this.btnLaplace.TabIndex = 9;
+            this.btnLaplace.Text = "Laplace";
+            this.btnLaplace.UseVisualStyleBackColor = true;
+            this.btnLaplace.Click += new System.EventHandler(this.btnLaplace_Click);
+            // 
+            // txtLaplaceThreshold
+            // 
+            this.txtLaplaceThreshold.Location = new System.Drawing.Point(93, 133);
+            this.txtLaplaceThreshold.Name = "txtLaplaceThreshold";
+            this.txtLaplaceThreshold.Size = new System.Drawing.Size(26, 20);
+            this.txtLaplaceThreshold.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 616);
+            this.Controls.Add(this.txtLaplaceThreshold);
+            this.Controls.Add(this.btnLaplace);
+            this.Controls.Add(this.txtPrewittThreshold);
+            this.Controls.Add(this.btnPrewitt);
             this.Controls.Add(this.txtSobelThreshold);
             this.Controls.Add(this.txtCannyThreshold);
             this.Controls.Add(this.prgLoader);
@@ -127,6 +169,10 @@
         private System.Windows.Forms.ProgressBar prgLoader;
         private System.Windows.Forms.TextBox txtCannyThreshold;
         private System.Windows.Forms.TextBox txtSobelThreshold;
+        private System.Windows.Forms.Button btnPrewitt;
+        private System.Windows.Forms.TextBox txtPrewittThreshold;
+        private System.Windows.Forms.Button btnLaplace;
+        private System.Windows.Forms.TextBox txtLaplaceThreshold;
     }
 }
 
