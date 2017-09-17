@@ -39,6 +39,12 @@
             this.txtPrewittThreshold = new System.Windows.Forms.TextBox();
             this.btnLaplace = new System.Windows.Forms.Button();
             this.txtLaplaceThreshold = new System.Windows.Forms.TextBox();
+            this.btnRoberts = new System.Windows.Forms.Button();
+            this.txtRobertsThreshold = new System.Windows.Forms.TextBox();
+            this.btnRobinson = new System.Windows.Forms.Button();
+            this.txtRobinsonThreshold = new System.Windows.Forms.TextBox();
+            this.btnKirsh = new System.Windows.Forms.Button();
+            this.txtKirshThreshold = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictInput)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,11 +142,68 @@
             this.txtLaplaceThreshold.Size = new System.Drawing.Size(26, 20);
             this.txtLaplaceThreshold.TabIndex = 10;
             // 
+            // btnRoberts
+            // 
+            this.btnRoberts.Location = new System.Drawing.Point(12, 160);
+            this.btnRoberts.Name = "btnRoberts";
+            this.btnRoberts.Size = new System.Drawing.Size(75, 23);
+            this.btnRoberts.TabIndex = 11;
+            this.btnRoberts.Text = "Roberts";
+            this.btnRoberts.UseVisualStyleBackColor = true;
+            this.btnRoberts.Click += new System.EventHandler(this.btnRoberts_Click);
+            // 
+            // txtRobertsThreshold
+            // 
+            this.txtRobertsThreshold.Location = new System.Drawing.Point(93, 162);
+            this.txtRobertsThreshold.Name = "txtRobertsThreshold";
+            this.txtRobertsThreshold.Size = new System.Drawing.Size(26, 20);
+            this.txtRobertsThreshold.TabIndex = 12;
+            // 
+            // btnRobinson
+            // 
+            this.btnRobinson.Location = new System.Drawing.Point(12, 189);
+            this.btnRobinson.Name = "btnRobinson";
+            this.btnRobinson.Size = new System.Drawing.Size(75, 23);
+            this.btnRobinson.TabIndex = 13;
+            this.btnRobinson.Text = "Robinson";
+            this.btnRobinson.UseVisualStyleBackColor = true;
+            this.btnRobinson.Click += new System.EventHandler(this.btnRobinson_Click);
+            // 
+            // txtRobinsonThreshold
+            // 
+            this.txtRobinsonThreshold.Location = new System.Drawing.Point(93, 191);
+            this.txtRobinsonThreshold.Name = "txtRobinsonThreshold";
+            this.txtRobinsonThreshold.Size = new System.Drawing.Size(26, 20);
+            this.txtRobinsonThreshold.TabIndex = 14;
+            // 
+            // btnKirsh
+            // 
+            this.btnKirsh.Location = new System.Drawing.Point(12, 218);
+            this.btnKirsh.Name = "btnKirsh";
+            this.btnKirsh.Size = new System.Drawing.Size(75, 23);
+            this.btnKirsh.TabIndex = 15;
+            this.btnKirsh.Text = "Kirsh";
+            this.btnKirsh.UseVisualStyleBackColor = true;
+            this.btnKirsh.Click += new System.EventHandler(this.btnKirsh_Click);
+            // 
+            // txtKirshThreshold
+            // 
+            this.txtKirshThreshold.Location = new System.Drawing.Point(93, 220);
+            this.txtKirshThreshold.Name = "txtKirshThreshold";
+            this.txtKirshThreshold.Size = new System.Drawing.Size(26, 20);
+            this.txtKirshThreshold.TabIndex = 16;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 616);
+            this.Controls.Add(this.txtKirshThreshold);
+            this.Controls.Add(this.btnKirsh);
+            this.Controls.Add(this.txtRobinsonThreshold);
+            this.Controls.Add(this.btnRobinson);
+            this.Controls.Add(this.txtRobertsThreshold);
+            this.Controls.Add(this.btnRoberts);
             this.Controls.Add(this.txtLaplaceThreshold);
             this.Controls.Add(this.btnLaplace);
             this.Controls.Add(this.txtPrewittThreshold);
@@ -173,6 +236,12 @@
         private System.Windows.Forms.TextBox txtPrewittThreshold;
         private System.Windows.Forms.Button btnLaplace;
         private System.Windows.Forms.TextBox txtLaplaceThreshold;
+        private System.Windows.Forms.Button btnRoberts;
+        private System.Windows.Forms.TextBox txtRobertsThreshold;
+        private System.Windows.Forms.Button btnRobinson;
+        private System.Windows.Forms.TextBox txtRobinsonThreshold;
+        private System.Windows.Forms.Button btnKirsh;
+        private System.Windows.Forms.TextBox txtKirshThreshold;
     }
 }
 

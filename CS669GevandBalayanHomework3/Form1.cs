@@ -16,6 +16,9 @@ namespace CS669GevandBalayanHomework3
         int sobelThreshold = 50;
         int prewittThreshold = 50;
         int laplaceThreshold = 20;
+        int robertsThreshold = 50;
+        int kirshThreshold = 50;
+        int robinsonThreshold = 20;
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +26,9 @@ namespace CS669GevandBalayanHomework3
             txtSobelThreshold.Text = sobelThreshold.ToString();
             txtPrewittThreshold.Text = prewittThreshold.ToString();
             txtLaplaceThreshold.Text = laplaceThreshold.ToString();
+            txtRobertsThreshold.Text = robertsThreshold.ToString();
+            txtRobinsonThreshold.Text = robinsonThreshold.ToString();
+            txtKirshThreshold.Text = kirshThreshold.ToString();
         }
 
         private void btnCanny_Click(object sender, EventArgs e)
@@ -40,6 +46,9 @@ namespace CS669GevandBalayanHomework3
             int.TryParse(txtSobelThreshold.Text, out sobelThreshold);
             int.TryParse(txtPrewittThreshold.Text, out prewittThreshold);
             int.TryParse(txtLaplaceThreshold.Text, out laplaceThreshold);
+            int.TryParse(txtRobertsThreshold.Text, out robertsThreshold);
+            int.TryParse(txtRobinsonThreshold.Text, out robinsonThreshold);
+            int.TryParse(txtKirshThreshold.Text, out kirshThreshold);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -64,7 +73,173 @@ namespace CS669GevandBalayanHomework3
                 MessageBox.Show("Error! Couldn't load image.");
             }
         }
+        private async void btnKirsh_Click(object sender, EventArgs e)
+        {
+            if (pictInput.Image == null)
+            {
+                MessageBox.Show("First enter an image");
+                return;
+            }
+            LoadConstants();
+            prgLoader.Maximum = 100;
+            prgLoader.Step = 1;
+            prgLoader.Value = 0;
+            System.IProgress<int> progress = new Progress<int>(v =>
+            {
+                prgLoader.Value = v;
+            });
 
+            Bitmap greyScale = GreyScale(new Bitmap(pictInput.Image));
+            //apply sobel filter
+            //Gx            Gy
+            //- 1  0  + 1     + 1 + 2 + 1
+            //- 2  0  + 2       0   0   0
+            //- 1  0  + 1     - 1 - 2 - 1
+
+            var sobleBitMap = new Bitmap(greyScale.Width, greyScale.Height);
+            await Task.Run(() =>
+            {
+                for (int i = 3; i < greyScale.Width - 3; i++)
+                {
+                    for (int j = 3; j < greyScale.Height - 3; j++)
+                    {
+                        int p1 = greyScale.GetPixel(i - 1, j - 1).R;
+                        int p2 = greyScale.GetPixel(i - 1, j).R;
+                        int p3 = greyScale.GetPixel(i - 1, j + 1).R;
+                        int p4 = greyScale.GetPixel(i, j - 1).R;
+                        int p5 = greyScale.GetPixel(i, j).R;
+                        int p6 = greyScale.GetPixel(i, j + 1).R;
+                        int p7 = greyScale.GetPixel(i + 1, j - 1).R;
+                        int p8 = greyScale.GetPixel(i + 1, j).R;
+                        int p9 = greyScale.GetPixel(i + 1, j + 1).R;
+                        var Gx = Math.Abs( (-5 * (p1 + p3 + p5)) + (3 * (p2 + p3 + p6 + p7 + p8)));
+                        if (Gx > kirshThreshold)
+                            sobleBitMap.SetPixel(i, j, Color.White);
+                        else
+                            sobleBitMap.SetPixel(i, j, Color.Black);
+                    }
+                    if (progress != null)
+                        progress.Report((i) * 100 / greyScale.Width);
+                }
+                progress.Report(100);
+            });
+
+            OutputFormcs outputForm = new OutputFormcs();
+            outputForm.LoadPicture(sobleBitMap);
+            outputForm.Height = sobleBitMap.Height + 50;
+            outputForm.Width = sobleBitMap.Width + 50;
+            outputForm.Show();
+
+        }
+        private async void btnRobinson_Click(object sender, EventArgs e)
+        {
+            if (pictInput.Image == null)
+            {
+                MessageBox.Show("First enter an image");
+                return;
+            }
+            LoadConstants();
+            prgLoader.Maximum = 100;
+            prgLoader.Step = 1;
+            prgLoader.Value = 0;
+            System.IProgress<int> progress = new Progress<int>(v =>
+            {
+                prgLoader.Value = v;
+            });
+
+            Bitmap greyScale = GreyScale(new Bitmap(pictInput.Image));
+            //apply sobel filter
+            //Gx            Gy
+            //- 1  0  + 1     + 1 + 2 + 1
+            //- 2  0  + 2       0   0   0
+            //- 1  0  + 1     - 1 - 2 - 1
+
+            var sobleBitMap = new Bitmap(greyScale.Width, greyScale.Height);
+            await Task.Run(() =>
+            {
+                for (int i = 3; i < greyScale.Width - 3; i++)
+                {
+                    for (int j = 3; j < greyScale.Height - 3; j++)
+                    {
+                        int p1 = greyScale.GetPixel(i - 1, j - 1).R;
+                        int p2 = greyScale.GetPixel(i - 1, j).R;
+                        int p3 = greyScale.GetPixel(i - 1, j + 1).R;
+                        int p4 = greyScale.GetPixel(i, j - 1).R;
+                        int p5 = greyScale.GetPixel(i, j).R;
+                        int p6 = greyScale.GetPixel(i, j + 1).R;
+                        int p7 = greyScale.GetPixel(i + 1, j - 1).R;
+                        int p8 = greyScale.GetPixel(i + 1, j).R;
+                        int p9 = greyScale.GetPixel(i + 1, j + 1).R;
+                        var Gx = Math.Abs(p1 + p2 + p3 + p4 + p6 - p7 - p8 - p9 + (-2 * p5));
+                        if (Gx > robinsonThreshold)
+                            sobleBitMap.SetPixel(i, j, Color.White);
+                        else
+                            sobleBitMap.SetPixel(i, j, Color.Black);
+                    }
+                    if (progress != null)
+                        progress.Report((i) * 100 / greyScale.Width);
+                }
+                progress.Report(100);
+            });
+
+            OutputFormcs outputForm = new OutputFormcs();
+            outputForm.LoadPicture(sobleBitMap);
+            outputForm.Height = sobleBitMap.Height + 50;
+            outputForm.Width = sobleBitMap.Width + 50;
+            outputForm.Show();
+        }
+
+        private async void btnRoberts_Click(object sender, EventArgs e)
+        {
+            if (pictInput.Image == null)
+            {
+                MessageBox.Show("First enter an image");
+                return;
+            }
+            LoadConstants();
+            prgLoader.Maximum = 100;
+            prgLoader.Step = 1;
+            prgLoader.Value = 0;
+            System.IProgress<int> progress = new Progress<int>(v =>
+            {
+                prgLoader.Value = v;
+            });
+
+            Bitmap greyScale = GreyScale(new Bitmap(pictInput.Image));
+
+
+            var sobleBitMap = new Bitmap(greyScale.Width, greyScale.Height);
+            await Task.Run(() =>
+            {
+                for (int i = 3; i < greyScale.Width - 3; i++)
+                {
+                    for (int j = 3; j < greyScale.Height - 3; j++)
+                    {
+                        int p1 = greyScale.GetPixel(i - 1, j - 1).R;
+                        int p2 = greyScale.GetPixel(i - 1, j).R;
+                        int p3 = greyScale.GetPixel(i, j - 1).R;
+                        int p4 = greyScale.GetPixel(i, j).R;
+
+                        var Gx = Math.Abs(p1 - p4);
+                        var Gy = Math.Abs(p2 - p3);
+
+                        if (Gx + Gy > robertsThreshold)
+                            sobleBitMap.SetPixel(i, j, Color.White);
+                        else
+                            sobleBitMap.SetPixel(i, j, Color.Black);
+                    }
+                    if (progress != null)
+                        progress.Report((i) * 100 / greyScale.Width);
+                }
+                progress.Report(100);
+            });
+
+            OutputFormcs outputForm = new OutputFormcs();
+            outputForm.LoadPicture(sobleBitMap);
+            outputForm.Height = sobleBitMap.Height + 50;
+            outputForm.Width = sobleBitMap.Width + 50;
+            outputForm.Show();
+        }
         private async void btnLaplace_Click(object sender, EventArgs e)
         {
             if (pictInput.Image == null)
